@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const app=fs.readFileSync(new URL('../app/components/SetApp.js', import.meta.url),'utf8');
 const pkg=JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url),'utf8'));
-test('v1.0.3 calendar and mobile messages version',()=>assert.equal(pkg.version,'1.0.8'));
+test('v1.0.3 calendar and mobile messages version',()=>assert.equal(pkg.version,'1.0.0'));
 test('dedicated My Business navigation exists',()=>{assert.match(app,/['\"]My Business['\"]/);assert.match(app,/view==='My Business'/)});
 test('new client modal captures identity and address',()=>['firstName','lastName','company','billingEmail','country','city','postalCode','address1'].forEach(k=>assert.match(app,new RegExp(k))));
 test('new client modal captures French and VAT identifiers',()=>['siren','siret','taxNumber','vatNumber','taxRegime'].forEach(k=>assert.match(app,new RegExp(k))));

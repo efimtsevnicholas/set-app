@@ -1,0 +1,20 @@
+{
+  "release": "SET 1.0 GA SOURCE",
+  "status": "GA source candidate approved after local regression/static checks",
+  "local_validation": [
+    "automated regression suite",
+    "final static release checks",
+    "ZIP integrity"
+  ],
+  "production_release_gate": [
+    "Next.js production build in CI/Vercel",
+    "production environment variables verified",
+    "production smoke test"
+  ],
+  "provider_dependent_followup": [
+    "Google/Microsoft full two-way calendar OAuth",
+    "inbound messaging OAuth/webhooks",
+    "Drive/Dropbox OAuth picker",
+    "Apple IAP/App Store Connect"
+  ]
+}
