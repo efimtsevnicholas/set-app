@@ -1,0 +1,25 @@
+{
+  "name": "set-creative-production-workspace",
+  "version": "0.9.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "echo \"Lint step not configured; Next build validation remains enabled\"",
+    "test": "node --test tests/*.test.mjs",
+    "check:env": "node scripts-check-env.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "next": "15.5.24",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "stripe": "^18.5.0",
+    "resend": "^6.0.2",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {},
+  "type": "module"
+}

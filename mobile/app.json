@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name":"SET",
+    "slug":"set-creative-production",
+    "version":"1.0.0",
+    "orientation":"portrait",
+    "scheme":"set",
+    "userInterfaceStyle":"light",
+    "ios":{"supportsTablet":true,"bundleIdentifier":"com.set.production"},
+    "android":{"package":"com.set.production"},
+    "plugins":["expo-router"],
+    "experiments":{"typedRoutes":true}
+  }
+}
