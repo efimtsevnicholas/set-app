@@ -6,7 +6,7 @@ const app=fs.readFileSync(new URL('../app/components/SetApp.js', import.meta.url
 const style=fs.readFileSync(new URL('../app/style.css', import.meta.url),'utf8');
 const pkg=JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url),'utf8'));
 
-test('release version is v1 RC',()=>assert.equal(pkg.version,'1.0.0-rc.3'));
+test('release version is v1 RC',()=>assert.equal(pkg.version,'1.0.0-rc.3.1'));
 test('project cards expose requested actions',()=>{
  for(const s of ['Rename','Share','Copy project link','Delete project','project-more']) assert.ok(app.includes(s),s);
 });
