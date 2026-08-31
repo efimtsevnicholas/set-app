@@ -1,7 +1,9 @@
-# SET v1.0.0 RC3 — Collaborative Tasks
+# SET v1.0.0 RC3.2
 
-This release builds on RC1 and upgrades Tasks into a collaborative production task manager.
+Hotfix release for the Tasks build syntax failure plus the RC3.1 Supabase auth cookie fix.
 
-Tasks now support multiple assignees from Contacts, progress percentage, priorities, descriptions, checklist items/subtasks, comments, completion state, filters, and safe deletion.
+Verification in this environment:
+- `npm test`: regression suite
+- `node scripts-final-check.mjs`: static release checks
 
-All existing RC1 modules remain included. Current task persistence still follows the existing browser/localStorage model until the remaining production CRUD is migrated to Supabase.
+A full local `next build` was attempted, but dependency installation timed out in the execution environment before `node_modules` was created. Vercel/GitHub CI should therefore remain the authoritative production build gate.
