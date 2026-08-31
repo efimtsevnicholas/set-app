@@ -1,49 +1,16 @@
-# SET v0.8
+# SET v0.9.9 — Contacts Import
 
-Creative production workspace — white / black / red UI, finance automation and subscription infrastructure.
+Adds a full Contacts workspace with manual contact creation, optional contact photos, phone/vCard import, and database import from CSV/JSON/vCard exports. Contacts are persisted locally in the current web build using SET local storage, consistent with the existing project workspace data model.
 
-## v0.8 additions
+On browsers that expose the Contact Picker API, **Import from phone** can request selected address-book contacts directly. On iPhone/web browsers where direct contact access is not exposed, SET automatically falls back to vCard import. The future native iOS build can use the native Contacts permission for direct address-book import.
 
-- Stripe Checkout for €9.99 monthly / €99.99 yearly with 7-day trial.
-- Stripe webhook → subscription entitlement synchronization.
-- Supabase server/admin helpers and authenticated API routes.
-- Real PDF invoice generation and email attachment delivery.
-- Transactional email adapter for invoices and payment reminders.
-- Automatic non-legal collections queue processor.
-- Formal notices are database-enforced as approval-required.
-- Manual payment reconciliation with audit trail.
-- Tests for pricing, trials, tax reserve and overdue calculations.
+# SET v0.9.8 — Calendar & Booking Hub
 
-# SET v0.4 — Cross-platform Production Foundation
+Adds a unified Calendar UI with Month / Week / Day / Agenda modes, richer events, project linking, calendar integration cards, ICS export for Apple/iCloud/Yahoo-compatible calendars, and OAuth entry-point routes for Google Calendar and Microsoft 365 plus Setmore API readiness.
 
-SET is a creative production operating system for photographers, creative directors, producers and teams.
-
-## Included
-- Next.js web application foundation
-- Supabase-ready PostgreSQL/Auth/RLS schema
-- Expo/React Native iOS + Android application scaffold
-- EAS build profiles for development, preview and production
-- CI workflow
-- Launch, privacy and legal documentation
-
-## Web
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-```
-
-## Mobile
-```bash
-cd mobile
-npm install
-cp .env.example .env
-npx expo start
-```
-
-## Production activation
-External credentials are intentionally not stored in this repository. Once a Supabase project is authorized, add its public URL and publishable key to the web and mobile environment files, then run the migration in `supabase/migrations/001_set_schema.sql`.
+## Production credentials still required
+Google and Microsoft OAuth client IDs/secrets and Setmore API access must be configured before live two-way sync can operate. The database migration adds connection and external-event link tables so duplicate external events can be prevented once callbacks/token storage are enabled.
 
 
-## v0.8 commercial workflow
-Finance now supports API-first devis and invoice creation, quote-to-deposit conversion, sequential invoice numbering, balance tracking, Stripe Billing Portal, collection approval gates, business-profile settings, and unified Apple/Stripe entitlement storage. See `docs/V0.8_EXECUTION_STATUS.md`.
+## v0.9.10 — Project actions
+Project cards now include a three-dot menu with Rename, Share, Copy project link, and Delete project. Share uses the native Web Share API when available and falls back to copying the stable project-ID URL. Delete requires confirmation.
