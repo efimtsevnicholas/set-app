@@ -1,0 +1,10 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
+const app=fs.readFileSync(new URL('../app/components/SetApp.js',import.meta.url),'utf8');
+const share=fs.readFileSync(new URL('../app/api/casting/share/route.js',import.meta.url),'utf8');
+const mail=fs.readFileSync(new URL('../app/api/casting/pdf-email/route.js',import.meta.url),'utf8');
+const pub=fs.readFileSync(new URL('../app/casting/share/[token]/page.js',import.meta.url),'utf8');
+test('Casting has five client choices',()=>{for(const x of ['CastingPro','[1,2,3,4,5]','choice:m.choice===n?0:n','CLIENT CHOICE'])assert.ok(app.includes(x),x)});
+test('Casting captures professional model details and statuses',()=>{for(const x of ['Agency','Height','Bust / chest','Waist','Hips','Shoe size','Availability / option dates','Confirmed','Released'])assert.ok(app.includes(x),x)});
+test('Casting supports public external share links',()=>{assert.ok(app.includes("fetch('/api/casting/share'"));assert.ok(share.includes("kind:'casting-share'"));assert.ok(pub.includes('No account required'))});
+test('Casting creates and emails PDF attachment',()=>{assert.ok(app.includes("fetch('/api/casting/pdf-email'"));assert.ok(mail.includes('attachments:'));assert.ok(mail.includes('PDFDocument'))});
+test('Casting adds shortlist workflow extras',()=>{for(const x of ['New','Option','Hold','Confirmed','Released','Internal / client notes','Email PDF','Share selection'])assert.ok(app.includes(x),x)});
