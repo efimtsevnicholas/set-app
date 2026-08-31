@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUser } from '../../../../lib/server/auth.js';
 import { createSupabaseAdmin } from '../../../../lib/server/supabase-admin.js';
+import { hasProAccess } from '../../../../lib/billing.js';
 
 export async function GET(){
   try{
@@ -14,6 +15,7 @@ export async function GET(){
     if(error) throw error;
     return NextResponse.json({
       hasCustomer:Boolean(data?.provider_customer_id),
+      hasAccess:hasProAccess(data),
       status:data?.status||null,
       planCode:data?.plan_code||null,
       currentPeriodEndsAt:data?.current_period_ends_at||null,

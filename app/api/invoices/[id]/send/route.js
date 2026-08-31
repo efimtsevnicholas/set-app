@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { requireUser } from '../../../../../lib/server/auth.js';
+import { requireProUser } from '../../../../../lib/server/access.js';
 import { createSupabaseAdmin } from '../../../../../lib/server/supabase-admin.js';
 import { sendTransactionalEmail } from '../../../../../lib/server/email.js';
 import { buildInvoicePdf } from '../../../../../lib/server/invoice-pdf.js';
 
 export async function POST(req,{params}){
  try{
-  const user=await requireUser(), {id}=await params, db=createSupabaseAdmin(), body=await req.json().catch(()=>({}));
+  const user=await requireProUser(), {id}=await params, db=createSupabaseAdmin(), body=await req.json().catch(()=>({}));
   const {data:invoice,error}=await db.from('invoices').select('*').eq('id',id).eq('owner_id',user.id).single(); if(error) throw error;
   if(!invoice.client_email) return NextResponse.json({error:'Client email missing'},{status:400});
   const {data:items}=await db.from('invoice_items').select('*').eq('invoice_id',id).order('sort_order');
@@ -30,5 +30,5 @@ export async function POST(req,{params}){
   }
   await db.from('audit_log').insert({actor_id:user.id,entity_type:'invoice',entity_id:id,action:'invoice_sent',metadata:{email_id:result?.data?.id||null}});
   return NextResponse.json({ok:true});
- }catch(e){return NextResponse.json({error:e.message},{status:e.message==='UNAUTHORIZED'?401:500})}
+ }catch(e){return NextResponse.json({error:e.message},{status:e.message==='UNAUTHORIZED'?401:e.message==='SUBSCRIPTION_REQUIRED'?402:500})}
 }
