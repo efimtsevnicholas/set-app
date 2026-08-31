@@ -1,0 +1,25 @@
+import { NextResponse } from 'next/server';
+import { requireUser } from '../../../../lib/server/auth.js';
+import { createSupabaseAdmin } from '../../../../lib/server/supabase-admin.js';
+
+export async function GET(){
+  try{
+    const user=await requireUser();
+    const db=createSupabaseAdmin();
+    const {data,error}=await db.from('subscriptions')
+      .select('provider_customer_id,status,plan_code,current_period_ends_at,trial_ends_at')
+      .eq('user_id',user.id)
+      .eq('provider','stripe')
+      .maybeSingle();
+    if(error) throw error;
+    return NextResponse.json({
+      hasCustomer:Boolean(data?.provider_customer_id),
+      status:data?.status||null,
+      planCode:data?.plan_code||null,
+      currentPeriodEndsAt:data?.current_period_ends_at||null,
+      trialEndsAt:data?.trial_ends_at||null,
+    });
+  }catch(e){
+    return NextResponse.json({error:e.message==='UNAUTHORIZED'?'Unauthorized':e.message},{status:e.message==='UNAUTHORIZED'?401:500});
+  }
+}
