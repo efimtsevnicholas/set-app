@@ -1,5 +1,7 @@
-# Deploy SET v0.9.9
+# Deploy SET v1.0.0 RC2
 
-Upload the contents of this folder over the current SET GitHub repository and let Vercel redeploy. No new server environment variables are required for the Contacts UI/import feature.
+Upload the contents of this package over the current SET repository and commit the changes. Vercel will create a new deployment from the connected branch.
 
-Supported imports: `.vcf`, `.csv`, `.json`. Phone contacts use the browser Contact Picker API when available, with vCard fallback.
+Before promoting to production, confirm the Vercel build is green and smoke-test Tasks: create, assign people, change progress, add checklist items, add comments, complete/reopen, and delete.
+
+No new external secrets are required specifically for the Tasks upgrade.
