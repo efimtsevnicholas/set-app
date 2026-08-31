@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const app=fs.readFileSync('app/components/SetApp.js','utf8');
+const cloud=fs.readFileSync('lib/cloud-sync.js','utf8');
+const css=fs.readFileSync('app/style.css','utf8');
+test('new cloud entities use UUID compatible ids',()=>{assert.match(app,/crypto\.randomUUID\(\)/)});
+test('calendar realtime listens to project_events',()=>{assert.match(cloud,/table:'project_events'/);assert.doesNotMatch(cloud,/table:'events'/)});
+test('project deep links open workspace',()=>{assert.match(app,/URLSearchParams\(window\.location\.search\).*get\('project'\)/s)});
+test('dashboard project mutations use synced React state',()=>{assert.match(app,/function Dashboard\(\{projects,tasks,events,setProjects/);assert.doesNotMatch(app,/function Dashboard[\s\S]{0,1200}location\.reload\(\)/)});
+test('moodboard and casting use cloud collections',()=>{assert.match(app,/useCloudCollection\(\{kind:`media-\$\{kind\}`/)});
+test('tablet has real clickable navigation',()=>{assert.match(app,/className="mobile-nav"/);assert.match(css,/\.mobile-nav\{display:none\}/);assert.match(css,/@media\(max-width:900px\)[\s\S]*\.mobile-nav\{display:flex/)});

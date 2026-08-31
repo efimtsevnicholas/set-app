@@ -1,9 +1,21 @@
-# SET v1.0.0 RC3.2
+# SET v1.0 RC6 — Cloud Realtime
 
-Hotfix release for the Tasks build syntax failure plus the RC3.1 Supabase auth cookie fix.
+RC6 moves SET from browser-only state toward a real collaborative workspace.
 
-Verification in this environment:
-- `npm test`: regression suite
-- `node scripts-final-check.mjs`: static release checks
+Implemented in this build:
+- Supabase-backed Projects, Tasks and Calendar events with Realtime subscriptions.
+- First-login migration of existing local Projects/Tasks/Events into cloud UUID records when the account has no cloud projects.
+- Cloud-synced Clients, Contacts, Network and per-project Team collections, with local cache fallback.
+- Private Supabase Storage bucket for project files, signed URL opening and delete support.
+- Team-aware RLS for project operational data.
+- Project invitation schema plus `accept_project_invite()` RPC foundation.
+- Existing Finance, Call Sheet, Moodboards, Tasks collaboration, billing and auth fixes retained.
 
-A full local `next build` was attempted, but dependency installation timed out in the execution environment before `node_modules` was created. Vercel/GitHub CI should therefore remain the authoritative production build gate.
+Production database migration `set_rc6_cloud_realtime_workspace_v2` was applied successfully to Supabase.
+
+Known remaining integration work:
+- automatic invitation email/auth acceptance UI;
+- provider-backed push notifications;
+- full Google/Microsoft calendar two-way CRUD callbacks;
+- inbound WhatsApp/Telegram/email sync;
+- moving remaining media blobs from browser data URLs to Storage.

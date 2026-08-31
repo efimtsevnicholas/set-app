@@ -28,3 +28,190 @@
 
 /* RC3 collaborative task delivery */
 .task-project-filter{min-width:180px;border:1px solid #ddd;background:#fff;padding:9px 12px;border-radius:8px;font:inherit}.task-progress-block small,.task-section>small{display:block;color:#777;margin-top:8px;line-height:1.4}.task-deliverable-upload{display:inline-flex;align-items:center;gap:8px;border:1px dashed #bbb;border-radius:10px;padding:11px 14px;cursor:pointer;font-weight:600}.task-deliverable-upload input{display:none}.task-deliverables{display:grid;gap:8px;margin-top:10px}.task-deliverables article{display:flex;justify-content:space-between;align-items:center;border:1px solid #eee;border-radius:10px;padding:10px 12px;background:#fafafa}.task-deliverables article div{display:flex;flex-direction:column;gap:2px}.task-deliverables article small{color:#888}.task-deliverables article button{border:0;background:transparent;font-size:20px}.task-activity{display:grid;gap:10px}.task-activity article{display:flex;gap:10px;align-items:flex-start;border-left:1px solid #ddd;padding-left:12px}.task-activity article>i{font-style:normal;color:#d71920}.task-activity article div{display:flex;flex-direction:column}.task-activity article small{color:#888;margin-top:2px}
+/* SET RC4 workspace, finance, call sheet and contact controls */
+.workspace-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.workspace-actions button,.workspace-actions select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 11px}.workspace-actions select{min-width:220px}.business-profile{display:grid;grid-template-columns:1fr 1fr;gap:12px}.business-profile>p,.business-profile>button{grid-column:1/-1}.business-profile label{display:grid;gap:6px;font-size:11px;color:var(--muted)}.business-profile input{border:1px solid var(--line);border-radius:8px;padding:11px}.doc-modal h4{margin:15px 0 8px}.contact-list-modern article{grid-template-columns:48px minmax(0,1fr) auto}.contact-row-actions{display:flex;gap:5px}.contact-row-actions button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:7px 9px;font-size:10px}.contact-row-actions .danger{color:var(--red)}.callsheet{display:grid;gap:14px}.callsheet-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}.callsheet-head>div:last-child{display:flex;gap:8px}.callsheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.callsheet-map{border:0;width:100%;height:340px;border-radius:8px}.map-link{display:inline-block;margin-top:10px;color:#111}.pinterest-import{border-color:#d8b7b7}@media(max-width:900px){.business-profile,.callsheet-grid{grid-template-columns:1fr}.contact-list-modern article{grid-template-columns:44px minmax(0,1fr)}.contact-row-actions{grid-column:2;flex-wrap:wrap}.workspace-actions{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0}.callsheet-head{flex-direction:column}.callsheet-map{height:280px}}
+/* RC5 event type markers */
+.event-type{border-left:4px solid #111!important;cursor:pointer}.event-creative-project{border-left-color:#8b5cf6!important}.event-commercial-photo-shoot,.event-photo-advertising{border-left-color:#e11d48!important}.event-commercial-video,.event-video-advertising{border-left-color:#2563eb!important}.event-casting{border-left-color:#f59e0b!important}.event-meeting{border-left-color:#10b981!important}.event-deadline{border-left-color:#dc2626!important}
+\n/* SET 1.0 FINAL: tablet/mobile navigation and touch layout */
+.mobile-nav{display:none}
+@media(max-width:1180px) and (min-width:901px){
+  aside{width:188px;flex-basis:188px;padding-left:12px;padding-right:12px}
+  .content{margin-left:188px;width:calc(100% - 188px);padding:28px 24px 70px}
+  .two-col{grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr)}
+  .calendar-grid{grid-template-columns:repeat(7,minmax(132px,1fr))}
+  .workspace-top h2{font-size:27px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .content:after{content:none!important;display:none!important}
+  .mobile-nav{display:flex;position:fixed;z-index:40;left:0;right:0;bottom:0;background:#f8f7f3;border-top:1px solid var(--line);padding:max(8px,env(safe-area-inset-bottom)) 8px calc(8px + env(safe-area-inset-bottom));gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mobile-nav button{flex:1 0 auto;min-width:74px;border:0;background:transparent;padding:10px 8px;border-radius:8px;font-size:11px;color:#5e5a54;touch-action:manipulation}
+  .mobile-nav button.active{background:#181818;color:#fff}
+  .content{padding-bottom:100px}
+  header{position:relative;top:auto;flex-wrap:wrap;gap:12px}
+  .actions{width:100%}.actions .primary{margin-left:auto}
+  .workspace-actions{top:0;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .workspace-actions>*{flex:0 0 auto}
+  .tabs{-webkit-overflow-scrolling:touch}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .calendar-grid{grid-template-columns:repeat(7,145px)}
+  .files article{overflow:hidden}
+  .files article button{min-height:38px}
+}
+@media(max-width:640px){
+  .project-grid{grid-template-columns:1fr}
+  .workspace-actions select{min-width:180px}
+  .callsheet-head>div:last-child{flex-wrap:wrap}
+}
+
+.invite-status-list{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;display:grid;gap:8px}.invite-status-list>div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #eee}.invite-status-list em{font-style:normal;text-transform:capitalize;color:var(--muted)}.invite-login{display:block;text-align:center;text-decoration:none;margin-top:18px}
+
+
+/* SET 1.0.1 RESPONSIVE MATRIX */
+html,body{max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{min-height:100dvh}
+main,.content,.two-col,.right,.panel,.workspace-top,.calendar-hub,.tasks-pro,.media-workspace{min-width:0}
+button,a,input,select,textarea{touch-action:manipulation}
+img,video,iframe,canvas,svg{max-width:100%}
+.tabs,.board-tabs,.workspace-actions,.calendar-mode,.calendar-actions,.media-actions,.contacts-actions,.finance-actions{scrollbar-width:none}
+.tabs::-webkit-scrollbar,.board-tabs::-webkit-scrollbar,.workspace-actions::-webkit-scrollbar,.calendar-mode::-webkit-scrollbar,.calendar-actions::-webkit-scrollbar,.media-actions::-webkit-scrollbar,.contacts-actions::-webkit-scrollbar,.finance-actions::-webkit-scrollbar{display:none}
+
+/* Compact desktop / large tablets in landscape */
+@media(max-width:1280px) and (min-width:901px){
+  .content{padding-left:24px;padding-right:24px}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .masonry{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .media-grid.casting-media{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .network-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .casting-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .task-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* iPad / Android tablets, portrait and narrow landscape */
+@media(max-width:1024px){
+  .content{max-width:none}
+  header,.workspace-top{gap:14px}
+  header h1{line-height:1.05}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .two-col{grid-template-columns:1fr}
+  .right{display:grid}
+  .masonry{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .media-grid.mood-media{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .media-grid.casting-media{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .budget-table,.quote-list,.collection-inbox,.contact-list-modern,.agenda-list{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .calendar-grid{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+}
+
+/* Tablet/mobile shell */
+@media(max-width:900px){
+  body{padding-top:env(safe-area-inset-top)}
+  aside{display:none!important}
+  .content{margin-left:0!important;width:100%!important;padding:18px max(16px,env(safe-area-inset-left)) calc(104px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right))!important}
+  .mobile-nav{padding-left:max(8px,env(safe-area-inset-left));padding-right:max(8px,env(safe-area-inset-right))}
+  .mobile-nav button{min-height:44px;min-width:78px;font-size:12px}
+  header{position:relative!important;top:auto!important;padding:4px 0 10px!important;margin-bottom:18px!important;background:transparent!important}
+  header,.workspace-top,.calendar-hub-top{flex-wrap:wrap}
+  .workspace-top{flex-direction:column}
+  .workspace-top>div,.workspace-top>span{width:100%}
+  .actions{display:flex;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .actions>*{flex:0 0 auto}
+  .search{display:block;width:min(220px,55vw)}
+  .tabs,.board-tabs,.workspace-actions,.calendar-mode,.calendar-actions,.media-actions,.contacts-actions,.finance-actions{overflow-x:auto;flex-wrap:nowrap!important;-webkit-overflow-scrolling:touch}
+  .tabs>* ,.board-tabs>* ,.workspace-actions>* ,.calendar-mode>* ,.calendar-actions>* ,.media-actions>* ,.contacts-actions>* ,.finance-actions>*{flex:0 0 auto}
+  .project-card,.grid-card{min-height:176px}
+  .task-board{grid-template-columns:1fr}
+  .network-grid,.casting-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .schedule>div{grid-template-columns:72px minmax(0,1fr) 100px;gap:8px}
+  .callsheet-grid,.business-profile{grid-template-columns:1fr}
+  .callsheet-map{height:clamp(240px,42vh,360px)}
+  .modal{padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));align-items:center;overflow:auto}
+  .modal>div,.task-modal,.doc-modal{width:min(680px,100%)!important;max-height:min(90dvh,760px)!important;overflow:auto!important;overscroll-behavior:contain}
+  .toast{left:14px;right:14px;bottom:calc(86px + env(safe-area-inset-bottom));text-align:center}
+  .upload{min-height:88px;padding:24px 16px}
+}
+
+/* Phones and small tablets */
+@media(max-width:700px){
+  h1{font-size:30px!important}
+  .workspace-top h2{font-size:24px!important}
+  .project-grid{grid-template-columns:1fr!important}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .masonry,.media-grid.mood-media{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .media-grid.casting-media,.network-grid,.casting-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .calendar-sync-strip{gap:8px}
+  .integration-grid{grid-template-columns:1fr}
+  .event-modal-grid,.task-grid,.doc-form{grid-template-columns:1fr!important}
+  .budget-total{grid-template-columns:1fr!important}
+  .budget-table{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .budget-table>div{min-width:480px}
+  .quote-list article,.collection-inbox article{min-width:0}
+  .contact-list-modern article{grid-template-columns:44px minmax(0,1fr)!important}
+  .contact-row-actions{grid-column:2!important;flex-wrap:wrap}
+  .contact-main>div{display:grid;gap:4px}
+  .schedule{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .schedule>div{min-width:520px}
+  .task-detail-head{flex-direction:column}
+  .task-delete{align-self:flex-start}
+}
+
+/* iPhone / compact Android */
+@media(max-width:480px){
+  .content{padding-top:14px!important;padding-left:max(12px,env(safe-area-inset-left))!important;padding-right:max(12px,env(safe-area-inset-right))!important}
+  h1{font-size:27px!important}
+  .actions{width:100%}
+  .actions .primary,.actions .ghost{min-height:44px}
+  .search{width:100%;min-width:180px}
+  .stats{grid-template-columns:1fr 1fr;gap:8px}
+  .stat{padding:14px}
+  .project-card{height:166px;padding:18px}
+  .project-card footer{left:18px;right:18px}
+  .percent{right:18px}
+  .masonry,.media-grid.mood-media,.media-grid.casting-media,.network-grid,.casting-grid{grid-template-columns:1fr!important}
+  .mood-img{min-height:210px}
+  .calendar-grid{grid-template-columns:repeat(7,138px)!important}
+  .calendar-grid>div{min-height:380px}
+  .calendar-mode button,.calendar-actions button,.workspace-actions button,.workspace-actions select,.media-actions button,.contacts-actions button,.finance-actions button{min-height:44px}
+  .workspace-actions select{min-width:165px}
+  .comment-box,.chat-input,.task-add-line{align-items:stretch}
+  .comment-box input,.chat-input input,.task-add-line input{min-width:0}
+  .comment-box button,.chat-input button,.task-add-line button{min-width:48px}
+  .files article{display:grid;gap:8px}
+  .files small{float:none}
+  .callsheet-head{padding:15px}
+  .callsheet-head>div:last-child{width:100%}
+  .callsheet-head>div:last-child button{flex:1;min-height:44px}
+  .modal h2{font-size:22px}
+  .modal>div,.task-modal,.doc-modal{padding:16px!important;border-radius:12px}
+  input,select,textarea{font-size:16px!important}
+}
+
+/* Very narrow phones (320–374px) */
+@media(max-width:374px){
+  .content{padding-left:max(10px,env(safe-area-inset-left))!important;padding-right:max(10px,env(safe-area-inset-right))!important}
+  h1{font-size:25px!important}
+  .stats{grid-template-columns:1fr}
+  .mobile-nav button{min-width:68px;padding-left:6px;padding-right:6px;font-size:11px}
+  .workspace-actions select{min-width:150px}
+  .project-card{height:160px}
+  .project-card b{font-size:16px}
+  .percent{font-size:23px}
+  .calendar-grid{grid-template-columns:repeat(7,128px)!important}
+}
+
+/* Short landscape phones */
+@media(max-height:520px) and (orientation:landscape) and (max-width:900px){
+  .content{padding-bottom:84px!important}
+  .mobile-nav{padding-top:4px;padding-bottom:max(4px,env(safe-area-inset-bottom))}
+  .mobile-nav button{min-height:38px;padding-top:6px;padding-bottom:6px}
+  .modal{align-items:start}
+  .modal>div,.task-modal,.doc-modal{max-height:calc(100dvh - 20px)!important}
+  .callsheet-map{height:220px}
+}
+
+/* Touch-first devices: keep actionable controls large enough */
+@media(hover:none) and (pointer:coarse){
+  button,.ghost,.primary,.project-more,.contact-row-actions button{min-height:44px}
+  .project-more{min-width:44px;width:44px;height:44px;top:6px;right:8px}
+  .select-heart{width:44px;height:44px}
+  nav button{min-height:44px}
+}
