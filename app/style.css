@@ -9,3 +9,5 @@
 .callGrid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #111;margin:30px 0}.callGrid section{padding:24px 24px 24px 0;border-bottom:1px solid #ddd}.callGrid section:nth-child(even){padding-left:24px;border-left:1px solid #ddd}.callGrid b{font-size:9px;letter-spacing:.14em}.callGrid p{font-size:12px;line-height:1.55;margin:12px 0}@media(max-width:650px){.callGrid{grid-template-columns:1fr}.callGrid section:nth-child(even){padding-left:0;border-left:0}}
 
 .projectEdit{border:0;background:transparent;font-size:8px;letter-spacing:.12em;cursor:pointer;text-align:right}.projectEdit:hover{text-decoration:underline}
+
+.editor select{display:block;width:100%;border:0;border-bottom:1px solid #aaa;background:#fff;padding:10px 0;font-size:13px;outline:none}.callGrid a{color:#111;text-decoration:underline;text-underline-offset:3px}.projectEdit{justify-self:end}
