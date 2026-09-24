@@ -1,11 +1,18 @@
 {
-  "name": "SET",
+  "name": "SET — Creative Production OS",
   "short_name": "SET",
   "description": "Creative Production OS for photographers, producers, brands and creative teams.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "categories": [
+    "business",
+    "productivity",
+    "photo"
+  ],
   "icons": [
     {
       "src": "/set-icon.svg",
