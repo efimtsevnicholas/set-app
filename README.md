@@ -10,3 +10,6 @@ This release intentionally has no `middleware.js`; it cannot reproduce the previ
 
 
 Beta build marker: 2026-09-24 — casting, shared call sheets, estimates.
+
+
+Beta verification checkpoint: 2026-09-24.
