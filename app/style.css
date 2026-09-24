@@ -96,3 +96,34 @@ button.primary,.primary,button.accountBtn,.accountBtn,.loginSubmit,.planCard but
 button.outline,.outline,.textBtn,.moduleActions button,.rowActions button,.projectEdit,.editorHead button,.menuToggle,.loginSwitch,.paywall>footer button{color:var(--set-action);border-color:var(--set-action)}
 button.primary:hover,.primary:hover,button.accountBtn:hover,.accountBtn:hover,.loginSubmit:hover,.planCard button:hover{background:#fff;color:var(--set-action);border-color:var(--set-action)}
 button.outline:hover,.outline:hover,.textBtn:hover,.moduleActions button:hover,.rowActions button:hover,.projectEdit:hover{color:#9B0000}
+
+
+/* SET workspace polish — spacing, clean rules, non-overlapping actions */
+.data-module{border-top:0!important}
+.data-module>.toolbar{border:0!important;margin:0 0 18px!important;padding:0!important;min-height:24px}
+.data-table{border-top:1px solid #111}
+.special{border-top:0!important;padding:8px 0 56px!important;max-width:1180px}
+.special>h2{margin:28px 0 42px}
+.special .formGrid{gap:30px 34px!important;margin:32px 0 34px!important}
+.special>label{margin:24px 0 30px}
+.special>label input[type="file"]{margin-top:12px;min-height:42px;padding:10px 0}
+.special>.primary,.special>.outline{margin:0 12px 30px 0;min-height:42px}
+.moduleActions{display:flex;align-items:center;gap:10px!important;flex-wrap:wrap;margin:18px 0 24px}
+.moduleActions .primary,.moduleActions .outline,.moduleActions button,.moduleActions a{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:9px 13px!important;line-height:1.15;text-decoration:none;white-space:nowrap;margin:0!important}
+.table{margin-top:26px;border-top:1px solid #111}
+.special .table .tr{display:grid;grid-template-columns:minmax(180px,1.5fr) minmax(100px,.8fr) minmax(260px,1.5fr);gap:24px;align-items:center;min-height:72px;padding:14px 0;border-bottom:1px solid #ddd;font-size:11px}
+.special .table .tr>.moduleActions{justify-content:flex-end;margin:0}
+.castingGrid{margin-top:38px!important;gap:28px 22px!important}
+.castingCard{padding-top:16px!important}
+.castingCard .moduleActions{margin-top:14px}
+.auth-status{clear:both;margin:22px 0 30px!important;padding:14px 0!important;line-height:1.5;overflow-wrap:anywhere}
+.moodGrid{margin-top:38px!important;gap:20px!important}
+.moodItem small{display:block;padding:0 10px 12px;font-size:9px;line-height:1.45;font-weight:400}
+@media(max-width:800px){
+ .special{padding-top:0!important}
+ .special>h2{margin-bottom:30px}
+ .special .formGrid{gap:20px!important;margin:24px 0 28px!important}
+ .special .table .tr{grid-template-columns:1fr;gap:10px;padding:18px 0}
+ .special .table .tr>.moduleActions{justify-content:flex-start}
+ .moduleActions{gap:8px!important}
+}
