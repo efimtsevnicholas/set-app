@@ -149,3 +149,24 @@ button.outline:hover,.outline:hover,.textBtn:hover,.moduleActions button:hover,.
  .castingInfo{grid-template-columns:1fr;gap:14px}
  .castingNotes,.castingInfo .moduleActions{grid-column:1}
 }
+
+
+/* Client CRM — contact, billing and financial history */
+.clientCRM{width:100%}
+.clientCRM>.toolbar{border:0;margin-bottom:18px}
+.clientCard{border-top:1px solid #111}
+.clientCard:last-child{border-bottom:1px solid #ddd}
+.clientSummary{width:100%;display:grid;grid-template-columns:minmax(240px,1.5fr) minmax(220px,1fr) minmax(160px,.8fr) 24px;gap:28px;align-items:center;padding:22px 0!important;background:#fff!important;color:#111!important;border:0!important;text-align:left}
+.clientSummary span{min-width:0;overflow-wrap:anywhere}
+.clientSummary b{display:block;font-size:14px;font-weight:500}
+.clientSummary small{display:block;margin-top:7px;font-size:8px;letter-spacing:.08em;font-weight:400}
+.clientSummary strong{text-align:right;font-size:18px;font-weight:300}
+.clientDetail{display:grid;grid-template-columns:1fr 1fr;gap:34px 54px;padding:8px 0 34px}
+.clientDetail section{border-top:1px solid #ddd;padding-top:16px}
+.clientDetail h3{margin:0 0 18px;font-size:8px;letter-spacing:.12em}
+.clientDetail p{margin:8px 0;font-size:11px;line-height:1.5}
+.clientHistory{grid-column:1/-1}
+.clientDetail>.moduleActions{grid-column:1/-1;margin:0}
+.editor{max-height:88vh;overflow:auto}
+.editor label{margin-bottom:18px}
+@media(max-width:760px){.clientSummary{grid-template-columns:1fr 24px;gap:10px 16px}.clientSummary>span:nth-child(2),.clientSummary>span:nth-child(3){grid-column:1}.clientSummary>strong{grid-column:2;grid-row:1}.clientDetail{grid-template-columns:1fr;gap:22px}.clientHistory,.clientDetail>.moduleActions{grid-column:1}}
