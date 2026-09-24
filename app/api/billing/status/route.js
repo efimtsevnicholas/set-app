@@ -19,6 +19,8 @@ export async function GET(){
       planCode:data?.plan_code||null,
       currentPeriodEndsAt:data?.current_period_ends_at||null,
       trialEndsAt:data?.trial_ends_at||null,
+      cancelAtPeriodEnd:Boolean(data?.cancel_at_period_end),
+      provider:data?.provider||'stripe',
       duplicateCount:Math.max(0,rows.length-1),
     });
   }catch(e){
