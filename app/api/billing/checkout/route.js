@@ -21,7 +21,7 @@ export async function POST(req){
       customer:existing?.provider_customer_id||undefined,
       customer_email:existing?.provider_customer_id?undefined:user.email,
       line_items:[{price:priceIdForPlan(planCode),quantity:1}],
-      subscription_data:{trial_period_days:3,metadata:{user_id:user.id,plan_code:planCode}},
+      subscription_data:{metadata:{user_id:user.id,plan_code:planCode}},
       success_url:`${process.env.NEXT_PUBLIC_APP_URL}/?billing=success`,
       cancel_url:`${process.env.NEXT_PUBLIC_APP_URL}/?billing=cancelled`,
       metadata:{user_id:user.id,plan_code:planCode}
