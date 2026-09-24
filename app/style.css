@@ -127,3 +127,25 @@ button.outline:hover,.outline:hover,.textBtn:hover,.moduleActions button:hover,.
  .special .table .tr>.moduleActions{justify-content:flex-start}
  .moduleActions{gap:8px!important}
 }
+
+
+/* Casting — candidate preview list */
+.castingList{margin-top:44px;border-top:1px solid #111}
+.castingCandidate{position:relative;display:grid;grid-template-columns:180px minmax(0,1fr) auto;gap:28px;padding:24px 0;border-bottom:1px solid #d8d8d8;align-items:start}
+.castingPreview{width:180px;aspect-ratio:4/5;background:#f4f4f4;overflow:hidden}
+.castingPreview img{width:100%;height:100%;display:block;object-fit:cover}
+.castingNoPhoto{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8px;letter-spacing:.12em;color:#777}
+.castingInfo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 34px;min-width:0}
+.castingInfo h3,.castingInfo p{margin:6px 0 0;font-size:12px;font-weight:400;line-height:1.45;overflow-wrap:anywhere}
+.castingInfo h3{font-size:18px}
+.castingLabel,.castingState{font-size:7px;letter-spacing:.13em}
+.castingNotes{grid-column:1/-1}
+.castingInfo .moduleActions{grid-column:1/-1;margin:4px 0 0}
+.castingState{white-space:nowrap;padding-top:2px}
+@media(max-width:760px){
+ .castingCandidate{grid-template-columns:110px minmax(0,1fr);gap:18px}
+ .castingPreview{width:110px}
+ .castingState{grid-column:2}
+ .castingInfo{grid-template-columns:1fr;gap:14px}
+ .castingNotes,.castingInfo .moduleActions{grid-column:1}
+}
