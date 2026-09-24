@@ -7,3 +7,6 @@ Clean Next.js 15 rebuild with no middleware and no blocking server auth calls.
 3. Deploy.
 
 This release intentionally has no `middleware.js`; it cannot reproduce the previous middleware timeout.
+
+
+Beta build marker: 2026-09-24 — casting, shared call sheets, estimates.
