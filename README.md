@@ -13,3 +13,5 @@ Beta build marker: 2026-09-24 — casting, shared call sheets, estimates.
 
 
 Beta verification checkpoint: 2026-09-24.
+
+<!-- production deployment retry: 2026-09-24 release candidate -->
