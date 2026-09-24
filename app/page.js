@@ -24,7 +24,7 @@ export default function Page(){
    if(!live)return;
    setUser(u||null);
    if(!u){setProjects(fallback);setNotice('Sign in to sync your production workspace.');return;}
-   const {data,error}=await s.from('projects').select('*').order('created_at',{ascending:false});
+   const {data,error}=await s.from('projects').select('*').eq('owner_id',u.id).order('created_at',{ascending:false});
    if(error) throw error;
    setProjects((data||[]).map(normalizeProject));
   }catch(e){setProjects(fallback);setNotice('Workspace is available in preview mode.');}
@@ -38,7 +38,7 @@ export default function Page(){
   const name=prompt('Project name'); if(!name)return;
   try{
    const s=createClient();
-   const payload={name,status:'lead'};
+   const payload={name,status:'lead',owner_id:user.id};
    const {data,error}=await s.from('projects').insert(payload).select().single();
    if(error)throw error;
    setProjects(v=>[normalizeProject(data),...v]); setNotice('');
