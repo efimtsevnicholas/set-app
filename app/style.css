@@ -55,3 +55,10 @@ nav{gap:0}nav button{padding:7px 0;font-size:11px;letter-spacing:-.01em;color:#8
  .accountBtn{min-width:68px;padding:10px 9px}.layout>aside{padding:18px 18px 32px}.layout>aside nav{grid-template-columns:1fr}
  .layout>aside nav button{min-height:45px;font-size:12px}.hero{display:block}.heroActions{margin-top:24px;width:100%}.projectSelect,.heroActions .primary{width:100%;max-width:none}
 }
+
+/* Larger universal navigation */
+nav button{text-transform:uppercase;font-size:13px;font-weight:500;letter-spacing:.035em;line-height:1.15;padding:10px 0;min-height:38px}
+nav button.active{font-weight:700}.asideFoot{text-transform:uppercase}
+@media(min-width:1025px){.layout{grid-template-columns:225px 1fr}aside{padding:34px 26px}nav{gap:1px}nav button{font-size:13px;min-height:39px;padding:10px 0}}
+@media(max-width:1024px){.layout>aside nav button{text-transform:uppercase;font-size:14px;font-weight:500;letter-spacing:.035em;min-height:50px}.layout>aside nav button.active{font-weight:700}}
+@media(max-width:560px){.layout>aside nav button{font-size:13px;min-height:48px}}
