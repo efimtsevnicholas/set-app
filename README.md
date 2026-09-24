@@ -19,3 +19,5 @@ Beta verification checkpoint: 2026-09-24.
 <!-- SET production release bundle: project RPC + form layout + workspace rules + red actions -->
 
 <!-- production redeploy after Stripe configuration -->
+
+<!-- production deploy trigger: schedule notifications 2026-09-24 -->
