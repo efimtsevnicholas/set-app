@@ -4,7 +4,7 @@ import {createClient} from '../../lib/supabase-browser';
 
 export default function Login(){
  const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[mode,setMode]=useState('login'),[status,setStatus]=useState(''),[busy,setBusy]=useState(false);
- async function submit(e){e.preventDefault();if(busy)return;setBusy(true);setStatus('');try{const s=createClient();const r=mode==='login'?await s.auth.signInWithPassword({email,password}):await s.auth.signUp({email,password,options:{emailRedirectTo:`${location.origin}/auth/callback`}});if(r.error)throw r.error;if(mode==='login'){location.href=new URLSearchParams(location.search).get('next')||'/';return}setStatus('CHECK YOUR EMAIL TO CONFIRM YOUR ACCOUNT.')}catch(err){setStatus(String(err.message||'Could not continue.').toUpperCase())}finally{setBusy(false)}}
+ async function submit(e){e.preventDefault();if(busy)return;setBusy(true);setStatus('');try{const s=createClient();if(mode==='login'){const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const json=await res.json();if(!res.ok)throw new Error(json.error||'Could not log in');location.href=new URLSearchParams(location.search).get('next')||'/';return}const r=await s.auth.signUp({email,password,options:{emailRedirectTo:`${location.origin}/auth/callback`}});if(r.error)throw r.error;setStatus('CHECK YOUR EMAIL TO CONFIRM YOUR ACCOUNT.')}catch(err){setStatus(String(err.message||'Could not continue.').toUpperCase())}finally{setBusy(false)}}
  return <main className="loginPage">
   <header className="loginHeader"><a className="loginLogo" href="/">SET</a><span>CREATIVE PRODUCTION OS</span></header>
   <section className="loginGrid">
