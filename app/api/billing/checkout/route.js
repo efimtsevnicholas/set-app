@@ -9,7 +9,7 @@ export async function POST(req){
   try{
     const user=await requireUser();
     const {planCode}=await req.json();
-    if(!['pro_monthly','pro_yearly'].includes(planCode)) return NextResponse.json({error:'Invalid plan'}, {status:400});
+    if(!['pro_monthly','pro_yearly','pro_3year'].includes(planCode)) return NextResponse.json({error:'Invalid plan'}, {status:400});
     const stripe=getStripe(), db=createSupabaseAdmin();
     const {subscription:existing}=await getCurrentStripeSubscription(db,user.id);
     if(hasProAccess(existing)){
@@ -21,7 +21,7 @@ export async function POST(req){
       customer:existing?.provider_customer_id||undefined,
       customer_email:existing?.provider_customer_id?undefined:user.email,
       line_items:[{price:priceIdForPlan(planCode),quantity:1}],
-      subscription_data:{trial_period_days:7,metadata:{user_id:user.id,plan_code:planCode}},
+      subscription_data:{trial_period_days:3,metadata:{user_id:user.id,plan_code:planCode}},
       success_url:`${process.env.NEXT_PUBLIC_APP_URL}/?billing=success`,
       cancel_url:`${process.env.NEXT_PUBLIC_APP_URL}/?billing=cancelled`,
       metadata:{user_id:user.id,plan_code:planCode}
