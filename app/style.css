@@ -37,3 +37,21 @@ nav{gap:0}nav button{padding:7px 0;font-size:11px;letter-spacing:-.01em;color:#8
 .special h2{font-size:52px;letter-spacing:-.055em;text-transform:uppercase}.callGrid{margin-top:38px}
 .loginPage{padding:0 34px}.loginHeader{height:72px}.loginLogo{font-size:25px}.loginGrid{min-height:calc(100vh - 131px)}.loginIntro h1{font-size:clamp(60px,7vw,110px);letter-spacing:-.07em}.loginIntro,.loginPanel{padding-top:52px}
 @media(max-width:800px){header{height:64px;padding:0 18px}.layout{min-height:calc(100vh - 64px)}aside{padding:12px 18px}.content{padding:30px 18px 70px}.hero h1{font-size:48px}.brand{font-size:23px}.loginPage{padding:0 18px}.loginHeader{height:64px}.loginIntro h1{font-size:50px}}
+
+.menuToggle{display:none;border:0;background:none;padding:12px 0;font-size:9px;letter-spacing:.12em;cursor:pointer}
+.accountBtn{min-width:82px;border:1px solid #111;background:#111;color:#fff;padding:11px 15px;font-size:8px;font-weight:500;letter-spacing:.11em;cursor:pointer;transition:.15s ease}
+.accountBtn:hover{background:#fff;color:#111}.accountBtn:focus-visible,.menuToggle:focus-visible{outline:2px solid #111;outline-offset:3px}
+@media(max-width:1024px){
+ header{position:sticky;top:0;z-index:30;background:#fff}.menuToggle{display:block;margin-left:auto;margin-right:18px}
+ .headerRight{gap:10px}.headerRight>span{display:none}.accountBtn{min-width:76px;padding:10px 12px}
+ .layout{display:block}.layout>aside{display:none;position:fixed;z-index:29;left:0;right:0;top:64px;bottom:0;background:#fff;border:0;padding:24px 22px 36px;overflow-y:auto}
+ .layout>aside.menuOpen{display:flex}.layout>aside nav{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:0 26px}
+ .layout>aside nav button{min-height:48px;border-bottom:1px solid #ddd;font-size:13px;color:#111;padding:13px 0;letter-spacing:-.01em}
+ .layout>aside nav button.active{border-bottom-color:#111;font-weight:600}.layout>aside .asideFoot{display:block;margin-top:34px}
+ .content{padding-top:34px}
+}
+@media(max-width:560px){
+ header{padding:0 16px}.brand{font-size:22px}.menuToggle{margin-right:10px;min-width:52px;text-align:center}
+ .accountBtn{min-width:68px;padding:10px 9px}.layout>aside{padding:18px 18px 32px}.layout>aside nav{grid-template-columns:1fr}
+ .layout>aside nav button{min-height:45px;font-size:12px}.hero{display:block}.heroActions{margin-top:24px;width:100%}.projectSelect,.heroActions .primary{width:100%;max-width:none}
+}
