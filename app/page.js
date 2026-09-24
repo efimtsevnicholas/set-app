@@ -2,14 +2,16 @@
 import {useEffect,useMemo,useState} from 'react';
 import {createClient} from '../lib/supabase-browser';
 
-const modules=['Overview','Projects','Clients','Moodboards','Casting','Crew','Schedule','Tasks','Expenses','Invoices','Files','Messages','Call Sheet','AI Assistant'];
+const modules=['Overview','Projects','Clients','Leads','Moodboards','Casting','Crew','Schedule','Tasks','Expenses','Estimates','Invoices','Files','Messages','Call Sheet','AI Assistant'];
 const config={
  Clients:{table:'clients',title:'CLIENT CRM',fields:['name','email','phone'],cols:['NAME','EMAIL','PHONE']},
+ Leads:{table:'clients',title:'LEADS',fields:['name','email','phone'],cols:['NAME','EMAIL','PHONE']},
  Tasks:{table:'tasks',title:'TASKS',fields:['title','status','due_date'],cols:['TASK','STATUS','DUE']},
  Casting:{table:'casting_candidates',title:'CASTING',fields:['name','agency','status'],cols:['TALENT','AGENCY','STATUS']},
  Crew:{table:'crew_profiles',title:'CREW',fields:['name','role','city'],cols:['NAME','ROLE','CITY']},
  Schedule:{table:'project_events',title:'SCHEDULE',fields:['title','start_at','location'],cols:['EVENT','TIME','LOCATION']},
  Expenses:{table:'expenses',title:'EXPENSES',fields:['description','amount','category'],cols:['ITEM','AMOUNT','CATEGORY']},
+ Estimates:{table:'estimates',title:'ESTIMATES',fields:['estimate_number','status','total'],cols:['NUMBER','STATUS','TOTAL']},
  Moodboards:{table:'moodboards',title:'MOODBOARDS',fields:['title','status','created_at'],cols:['TITLE','STATUS','CREATED']},
  Files:{table:'project_files',title:'FILES',fields:['name','file_type','created_at'],cols:['FILE','TYPE','CREATED']},
  Messages:{table:'project_messages',title:'MESSAGES',fields:['body','created_at','sender_id'],cols:['MESSAGE','DATE','FROM']},
@@ -20,7 +22,7 @@ const fallback=[{name:'Paris Fashion Campaign',type:'CAMPAIGN',date:'02 OCT 2026
 export default function Page(){
  const [active,setActive]=useState('Overview'),[projects,setProjects]=useState([]),[rows,setRows]=useState([]),[query,setQuery]=useState(''),[loading,setLoading]=useState(true),[notice,setNotice]=useState(''),[user,setUser]=useState(null),[projectId,setProjectId]=useState(''),[editing,setEditing]=useState(null),[stats,setStats]=useState({tasks:0,budget:0,shoots:0});
  useEffect(()=>{let live=true;(async()=>{try{const s=createClient(),{data:{user:u}}=await s.auth.getUser();if(!live)return;setUser(u||null);if(!u){setProjects(fallback);setNotice('Sign in to sync your production workspace.');return}const {data,error}=await s.from('projects').select('*').eq('owner_id',u.id).order('created_at',{ascending:false});if(error)throw error;setProjects((data||[]).map(normalizeProject));if(data?.[0])setProjectId(data[0].id)}catch(e){setProjects(fallback);setNotice('Workspace is available in preview mode.')}finally{if(live)setLoading(false)}})();return()=>{live=false}},[]);
- useEffect(()=>{if(!user||!config[active]){setRows([]);return}let live=true;(async()=>{try{const s=createClient(),c=config[active];let q=s.from(c.table).select('*').eq('owner_id',user.id);if(projectId&&active!=='Clients'&&active!=='Crew'&&active!=='Invoices')q=q.eq('project_id',projectId);if(c.api){const res=await fetch('/api/invoices');const json=await res.json();if(!res.ok)throw new Error(json.error||'Could not load invoices');if(live){setRows(json.invoices||[]);setNotice('')}return}const {data,error}=await q.limit(100);if(error)throw error;if(live){setRows(data||[]);setNotice('')}}catch(e){if(live){setRows([]);setNotice(active+' is ready, but its database view is not available yet.')}}})();return()=>{live=false}},[active,user,projectId]);
+ useEffect(()=>{if(!user||!config[active]){setRows([]);return}let live=true;(async()=>{try{const s=createClient(),c=config[active];let q=s.from(c.table).select('*').eq('owner_id',user.id);if(projectId&&!['Clients','Leads','Crew','Invoices','Estimates'].includes(active))q=q.eq('project_id',projectId);if(active==='Leads')q=q.eq('status','lead');if(c.api){const res=await fetch('/api/invoices');const json=await res.json();if(!res.ok)throw new Error(json.error||'Could not load invoices');if(live){setRows(json.invoices||[]);setNotice('')}return}const {data,error}=await q.limit(100);if(error)throw error;if(live){setRows(data||[]);setNotice('')}}catch(e){if(live){setRows([]);setNotice(active+' is ready, but its database view is not available yet.')}}})();return()=>{live=false}},[active,user,projectId]);
  useEffect(()=>{if(!user)return;(async()=>{try{const s=createClient();const [t,e,v]=await Promise.all([s.from('tasks').select('id',{count:'exact',head:true}).eq('owner_id',user.id),s.from('expenses').select('amount').eq('owner_id',user.id),s.from('project_events').select('id',{count:'exact',head:true}).eq('owner_id',user.id)]);setStats({tasks:t.count||0,budget:(e.data||[]).reduce((a,x)=>a+Number(x.amount||0),0),shoots:v.count||0})}catch{}})()},[user,rows]);
  const visible=useMemo(()=>projects.filter(p=>(p.name||'').toLowerCase().includes(query.toLowerCase())),[projects,query]);
  async function addProject(){if(!user){location.href='/login?next=/';return}const name=prompt('Project name');if(!name)return;try{const s=createClient(),{data,error}=await s.from('projects').insert({name,status:'lead',owner_id:user.id}).select().single();if(error)throw error;setProjects(v=>[normalizeProject(data),...v]);setNotice('')}catch(e){setNotice('Could not create project: '+e.message)}}
@@ -28,7 +30,7 @@ export default function Page(){
   if(!user||!config[active])return;
   if(active==='Invoices'){const client_name=prompt('Client name');if(!client_name)return;const client_email=prompt('Client email')||'';const description=prompt('Service description')||'Photography services';const amount=Number(prompt('Amount EUR')||0);try{const res=await fetch('/api/invoices',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_name,client_email,currency:'EUR',items:[{description,quantity:1,unit_price:amount,vat_rate:0}]})});const json=await res.json();if(!res.ok)throw new Error(json.error||'Could not create invoice');setRows(v=>[json.invoice,...v]);setNotice('')}catch(e){setNotice('Could not create invoice: '+e.message)}return}
   const c=config[active],first=c.fields[0],value=prompt('New '+active.slice(0,-1).toLowerCase()+' — '+first.replaceAll('_',' '));if(!value)return;
-  const base={owner_id:user.id,[first]:value}; if(projectId&&active!=='Clients'&&active!=='Crew'&&active!=='Invoices')base.project_id=projectId;
+  const base={owner_id:user.id,[first]:value}; if(projectId&&!['Clients','Leads','Crew','Invoices','Estimates'].includes(active))base.project_id=projectId;if(active==='Leads')base.status='lead';
   if(c.fields.includes('status'))base.status='draft';
   try{const s=createClient(),{data,error}=await s.from(c.table).insert(base).select().single();if(error)throw error;setRows(v=>[data,...v]);setNotice('')}catch(e){setNotice('Could not create record: '+e.message)}
  }
