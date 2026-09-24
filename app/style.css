@@ -13,3 +13,5 @@
 .editor select{display:block;width:100%;border:0;border-bottom:1px solid #aaa;background:#fff;padding:10px 0;font-size:13px;outline:none}.callGrid a{color:#111;text-decoration:underline;text-underline-offset:3px}.projectEdit{justify-self:end}
 
 .moduleTools{display:flex;align-items:center;gap:16px}.outline.small{padding:9px 12px;font-size:8px;letter-spacing:.1em}@media(max-width:650px){.moduleTools{gap:8px}.outline.small{padding:8px}}
+
+button:disabled{opacity:.45;cursor:wait}.eyebrow{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
