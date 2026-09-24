@@ -88,3 +88,11 @@ nav button.active{font-weight:700}.asideFoot{text-transform:uppercase}
 
 /* Remove redundant top rule from list/data workspaces */
 .data-module{border-top:0}
+
+
+/* SET action system — red */
+:root{--set-action:#9B0000}
+button.primary,.primary,button.accountBtn,.accountBtn,.loginSubmit,.planCard button{background:var(--set-action);border-color:var(--set-action);color:#fff}
+button.outline,.outline,.textBtn,.moduleActions button,.rowActions button,.projectEdit,.editorHead button,.menuToggle,.loginSwitch,.paywall>footer button{color:var(--set-action);border-color:var(--set-action)}
+button.primary:hover,.primary:hover,button.accountBtn:hover,.accountBtn:hover,.loginSubmit:hover,.planCard button:hover{background:#fff;color:var(--set-action);border-color:var(--set-action)}
+button.outline:hover,.outline:hover,.textBtn:hover,.moduleActions button:hover,.rowActions button:hover,.projectEdit:hover{color:#9B0000}
