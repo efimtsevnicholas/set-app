@@ -84,3 +84,7 @@ nav button.active{font-weight:700}.asideFoot{text-transform:uppercase}
 .special form{width:100%}
 @media(min-width:1180px){.special .formGrid{grid-template-columns:repeat(3,minmax(180px,1fr))}}
 @media(max-width:760px){.special .formGrid{grid-template-columns:1fr;gap:16px}.special .formGrid .primary{width:100%}}
+
+
+/* Remove redundant top rule from list/data workspaces */
+.data-module{border-top:0}
