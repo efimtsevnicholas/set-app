@@ -72,3 +72,15 @@ nav button.active{font-weight:700}.asideFoot{text-transform:uppercase}
 .castingGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}.castingCard{border-top:1px solid #111;padding-top:10px}.castingCard img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;margin-bottom:12px}.castingCard h3{font-size:13px;margin:8px 0}.castingCard p{font-size:9px;letter-spacing:.08em}.castingCard .moduleActions{display:flex;gap:5px;flex-wrap:wrap}@media(max-width:800px){.castingGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:480px){.castingGrid{grid-template-columns:1fr}}
 
 .sharedSheet{max-width:980px;margin:0 auto;padding:56px 42px 90px;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.sharedSheet h1{font-size:clamp(52px,8vw,100px);font-weight:400;letter-spacing:-.065em;line-height:.9;margin:28px 0 60px}.sharedSheet section{display:grid;grid-template-columns:180px 1fr;border-top:1px solid #111;padding:22px 0}.sharedSheet h3{font-size:9px;letter-spacing:.14em;margin:0}.sharedSheet p{margin:0 0 10px;font-size:12px;line-height:1.5}.sharedSheet a{color:#111;text-underline-offset:3px}.sharedSheet footer{border-top:1px solid #111;margin-top:55px;padding-top:14px;font-size:8px;letter-spacing:.14em}@media(max-width:650px){.sharedSheet{padding:32px 18px 60px}.sharedSheet section{grid-template-columns:1fr;gap:16px}.sharedSheet h1{margin-bottom:42px}}
+
+
+/* Form layout hardening — finance/business workspaces */
+.special{width:100%;max-width:1180px}
+.special .formGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;align-items:end;margin:28px 0}
+.special .formGrid label,.special>label{display:flex;flex-direction:column;gap:8px;min-width:0;font-size:8px;line-height:1.25;letter-spacing:.11em;text-transform:uppercase}
+.special .formGrid input,.special .formGrid select,.special>label input,.special>label select{box-sizing:border-box;width:100%;min-width:0;height:42px;border:0;border-bottom:1px solid #aaa;background:#fff;padding:8px 0;font:13px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;border-radius:0;outline:none}
+.special .formGrid input:focus,.special .formGrid select:focus,.special>label input:focus,.special>label select:focus{border-bottom-color:#111}
+.special .formGrid .primary{justify-self:start;align-self:end;min-height:42px}
+.special form{width:100%}
+@media(min-width:1180px){.special .formGrid{grid-template-columns:repeat(3,minmax(180px,1fr))}}
+@media(max-width:760px){.special .formGrid{grid-template-columns:1fr;gap:16px}.special .formGrid .primary{width:100%}}
