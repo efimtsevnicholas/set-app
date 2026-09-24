@@ -1,60 +1,33 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
-import { createClient } from '../lib/supabase-browser';
+import {useEffect,useMemo,useState} from 'react';
+import {createClient} from '../lib/supabase-browser';
 
 const modules=['Overview','Projects','Clients','Moodboards','Casting','Crew','Schedule','Tasks','Expenses','Invoices','Files','Messages','Call Sheet','AI Assistant'];
-const fallback=[
- {name:'Paris Fashion Campaign',type:'CAMPAIGN',date:'02 OCT 2026',status:'PRE-PRODUCTION',progress:72},
- {name:'Normandy Editorial',type:'EDITORIAL',date:'15 OCT 2026',status:'PLANNING',progress:38},
- {name:'Beauty Test — Paris',type:'MODEL TEST',date:'21 OCT 2026',status:'CONFIRMED',progress:54}
-];
+const config={
+ Clients:{table:'clients',title:'CLIENT CRM',fields:['name','email','phone'],cols:['NAME','EMAIL','PHONE']},
+ Tasks:{table:'tasks',title:'TASKS',fields:['title','status','due_date'],cols:['TASK','STATUS','DUE']},
+ Casting:{table:'casting_candidates',title:'CASTING',fields:['name','agency','status'],cols:['TALENT','AGENCY','STATUS']},
+ Crew:{table:'crew_profiles',title:'CREW',fields:['name','role','city'],cols:['NAME','ROLE','CITY']},
+ Schedule:{table:'project_events',title:'SCHEDULE',fields:['title','start_at','location'],cols:['EVENT','TIME','LOCATION']},
+ Expenses:{table:'expenses',title:'EXPENSES',fields:['description','amount','category'],cols:['ITEM','AMOUNT','CATEGORY']},
+ Moodboards:{table:'moodboards',title:'MOODBOARDS',fields:['title','status','created_at'],cols:['TITLE','STATUS','CREATED']},
+ Files:{table:'project_files',title:'FILES',fields:['name','file_type','created_at'],cols:['FILE','TYPE','CREATED']},
+ Messages:{table:'project_messages',title:'MESSAGES',fields:['body','created_at','sender_id'],cols:['MESSAGE','DATE','FROM']},
+ Invoices:{table:'invoices',title:'INVOICES',fields:['invoice_number','status','total'],cols:['NUMBER','STATUS','TOTAL']}
+};
+const fallback=[{name:'Paris Fashion Campaign',type:'CAMPAIGN',date:'02 OCT 2026',status:'PRE-PRODUCTION',progress:72},{name:'Normandy Editorial',type:'EDITORIAL',date:'15 OCT 2026',status:'PLANNING',progress:38},{name:'Beauty Test — Paris',type:'MODEL TEST',date:'21 OCT 2026',status:'CONFIRMED',progress:54}];
 
 export default function Page(){
- const [active,setActive]=useState('Overview');
- const [projects,setProjects]=useState([]);
- const [query,setQuery]=useState('');
- const [loading,setLoading]=useState(true);
- const [notice,setNotice]=useState('');
- const [user,setUser]=useState(null);
-
- useEffect(()=>{let live=true;(async()=>{
-  try{
-   const s=createClient();
-   const {data:{user:u}}=await s.auth.getUser();
-   if(!live)return;
-   setUser(u||null);
-   if(!u){setProjects(fallback);setNotice('Sign in to sync your production workspace.');return;}
-   const {data,error}=await s.from('projects').select('*').eq('owner_id',u.id).order('created_at',{ascending:false});
-   if(error) throw error;
-   setProjects((data||[]).map(normalizeProject));
-  }catch(e){setProjects(fallback);setNotice('Workspace is available in preview mode.');}
-  finally{if(live)setLoading(false)}
- })();return()=>{live=false}},[]);
-
+ const [active,setActive]=useState('Overview'),[projects,setProjects]=useState([]),[rows,setRows]=useState([]),[query,setQuery]=useState(''),[loading,setLoading]=useState(true),[notice,setNotice]=useState(''),[user,setUser]=useState(null);
+ useEffect(()=>{let live=true;(async()=>{try{const s=createClient(),{data:{user:u}}=await s.auth.getUser();if(!live)return;setUser(u||null);if(!u){setProjects(fallback);setNotice('Sign in to sync your production workspace.');return}const {data,error}=await s.from('projects').select('*').eq('owner_id',u.id).order('created_at',{ascending:false});if(error)throw error;setProjects((data||[]).map(normalizeProject))}catch(e){setProjects(fallback);setNotice('Workspace is available in preview mode.')}finally{if(live)setLoading(false)}})();return()=>{live=false}},[]);
+ useEffect(()=>{if(!user||!config[active]){setRows([]);return}let live=true;(async()=>{try{const s=createClient(),c=config[active];const {data,error}=await s.from(c.table).select('*').eq('owner_id',user.id).limit(100);if(error)throw error;if(live){setRows(data||[]);setNotice('')}}catch(e){if(live){setRows([]);setNotice(active+' is ready, but its database view is not available yet.')}}})();return()=>{live=false}},[active,user]);
  const visible=useMemo(()=>projects.filter(p=>(p.name||'').toLowerCase().includes(query.toLowerCase())),[projects,query]);
-
- async function addProject(){
-  if(!user){location.href='/login?next=/';return;}
-  const name=prompt('Project name'); if(!name)return;
-  try{
-   const s=createClient();
-   const payload={name,status:'lead',owner_id:user.id};
-   const {data,error}=await s.from('projects').insert(payload).select().single();
-   if(error)throw error;
-   setProjects(v=>[normalizeProject(data),...v]); setNotice('');
-  }catch(e){setNotice('Could not create project: '+e.message)}
- }
- async function signOut(){const s=createClient();await s.auth.signOut();location.href='/login';}
-
- return <main className="shell">
-  <header><div className="brand">SET</div><div className="headerRight"><span>CREATIVE PRODUCTION OS</span>{user?<button className="textBtn" onClick={signOut}>LOG OUT</button>:<button className="textBtn" onClick={()=>location.href='/login'}>LOG IN</button>}</div></header>
-  <div className="layout"><aside><nav>{modules.map(m=><button key={m} onClick={()=>setActive(m)} className={active===m?'active':''}>{m}</button>)}</nav><div className="asideFoot">EFIMTSEV / PARIS<br/>V2.3</div></aside>
-  <section className="content"><div className="eyebrow">WORKSPACE / {active.toUpperCase()}</div><div className="hero"><h1>{active}</h1><button className="primary" onClick={addProject}>+ NEW PROJECT</button></div>
-  {notice&&<p className="auth-status">{notice}</p>}
-  {active==='Overview'||active==='Projects'?<><div className="metrics"><article><b>{loading?'—':projects.length}</b><span>ACTIVE PROJECTS</span></article><article><b>07</b><span>TASKS DUE</span></article><article><b>€5,000</b><span>ACTIVE BUDGET</span></article><article><b>03</b><span>UPCOMING SHOOTS</span></article></div>
-  <div className="toolbar"><h2>PROJECTS</h2><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="SEARCH PROJECTS"/></div>
-  <div className="table"><div className="row head"><span>PROJECT</span><span>TYPE</span><span>DATE</span><span>STATUS</span><span>PROGRESS</span></div>{visible.map((p,i)=><div className="row" key={p.id||i}><strong>{p.name}</strong><span>{p.type}</span><span>{p.date}</span><span>{p.status}</span><span>{p.progress}%</span></div>)}</div></>:<Module name={active}/>} </section></div>
- </main>
+ async function addProject(){if(!user){location.href='/login?next=/';return}const name=prompt('Project name');if(!name)return;try{const s=createClient(),{data,error}=await s.from('projects').insert({name,status:'lead',owner_id:user.id}).select().single();if(error)throw error;setProjects(v=>[normalizeProject(data),...v]);setNotice('')}catch(e){setNotice('Could not create project: '+e.message)}}
+ async function signOut(){const s=createClient();await s.auth.signOut();location.href='/login'}
+ return <main className="shell"><header><div className="brand">SET</div><div className="headerRight"><span>CREATIVE PRODUCTION OS</span>{user?<button className="textBtn" onClick={signOut}>LOG OUT</button>:<button className="textBtn" onClick={()=>location.href='/login'}>LOG IN</button>}</div></header><div className="layout"><aside><nav>{modules.map(m=><button key={m} onClick={()=>setActive(m)} className={active===m?'active':''}>{m}</button>)}</nav><div className="asideFoot">EFIMTSEV / PARIS<br/>V2.3</div></aside><section className="content"><div className="eyebrow">WORKSPACE / {active.toUpperCase()}</div><div className="hero"><h1>{active}</h1><button className="primary" onClick={addProject}>+ NEW PROJECT</button></div>{notice&&<p className="auth-status">{notice}</p>}{active==='Overview'||active==='Projects'?<Projects projects={visible} loading={loading} query={query} setQuery={setQuery}/>:config[active]?<DataModule name={active} rows={rows}/>:<Special name={active}/>}</section></div></main>
 }
-function normalizeProject(p){return {id:p.id,name:p.name||p.title||'Untitled project',type:(p.type||'PROJECT').toString().toUpperCase(),date:p.date||p.shoot_date||p.start_date||'TBD',status:(p.status||'LEAD').toString().replaceAll('_',' ').toUpperCase(),progress:Number(p.progress||0)}}
-function Module({name}){const copy={Moodboards:'References, approvals, likes and final selections.',Casting:'Candidates, shortlist, selected talent and final cast.',Crew:'Creative database, availability, rates and project teams.',Schedule:'Production events and shoot-day timeline.',Tasks:'Project tasks, owners and deadlines.',Expenses:'Project expenses and budget control.',Invoices:'Estimates, invoices and payment status.',Files:'Production files and project media.',Messages:'Project conversations and approvals.','Call Sheet':'Generate and share production call sheets.','AI Assistant':'Turn a project brief into crew, casting, schedule and budget suggestions.',Clients:'Client CRM linked to every production.'}[name]||'Project workspace.'; return <div className="module"><div><div className="eyebrow">SET / {name.toUpperCase()}</div><h2>{copy}</h2></div><button className="outline">OPEN WORKSPACE</button></div>}
+function Projects({projects,loading,query,setQuery}){return <><div className="metrics"><article><b>{loading?'—':projects.length}</b><span>ACTIVE PROJECTS</span></article><article><b>07</b><span>TASKS DUE</span></article><article><b>€5,000</b><span>ACTIVE BUDGET</span></article><article><b>03</b><span>UPCOMING SHOOTS</span></article></div><div className="toolbar"><h2>PROJECTS</h2><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="SEARCH PROJECTS"/></div><div className="table"><div className="row head"><span>PROJECT</span><span>TYPE</span><span>DATE</span><span>STATUS</span><span>PROGRESS</span></div>{projects.map((p,i)=><div className="row" key={p.id||i}><strong>{p.name}</strong><span>{p.type}</span><span>{fmt(p.date)}</span><span>{p.status}</span><span>{p.progress}%</span></div>)}</div></>}
+function DataModule({name,rows}){const c=config[name];return <div className="data-module"><div className="toolbar"><h2>{c.title}</h2><span className="count">{rows.length} RECORDS</span></div><div className="data-table"><div className="data-row head">{c.cols.map(x=><span key={x}>{x}</span>)}</div>{rows.length?rows.map((r,i)=><div className="data-row" key={r.id||i}>{c.fields.map((f,j)=><span key={f} className={j===0?'lead':''}>{fmt(r[f])}</span>)}</div>):<div className="empty">NO RECORDS YET</div>}</div></div>}
+function Special({name}){const copy={'Call Sheet':'Build a production-ready call sheet from project, crew, casting, schedule and location data.','AI Assistant':'Turn a brief into production tasks, crew and casting suggestions, schedule and budget guidance.'}[name]||'Project workspace.';return <div className="module"><div><div className="eyebrow">SET / {name.toUpperCase()}</div><h2>{copy}</h2></div><button className="outline">OPEN WORKSPACE</button></div>}
+function normalizeProject(p){return{id:p.id,name:p.name||p.title||'Untitled project',type:String(p.type||'PROJECT').toUpperCase(),date:p.date||p.shoot_date||p.start_date||'TBD',status:String(p.status||'LEAD').replaceAll('_',' ').toUpperCase(),progress:Number(p.progress||0)}}
+function fmt(v){if(v===null||v===undefined||v==='')return'—';if(typeof v==='number')return String(v);const s=String(v);return s.length>80?s.slice(0,77)+'…':s}
