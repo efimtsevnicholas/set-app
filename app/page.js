@@ -28,11 +28,11 @@ export default function Page(){
  useEffect(()=>{if(projectId&&typeof window!=='undefined')localStorage.setItem('set_project',projectId)},[projectId]);
  const visible=useMemo(()=>projects.filter(p=>(p.name||'').toLowerCase().includes(query.toLowerCase())),[projects,query]);const currentProject=projects.find(p=>p.id===projectId);
  async function addProject(){if(!user){location.href='/login?next=/';return}setProjectForm({name:'',status:'lead'})}
- async function addRecord(){if(!user||!config[active])return;setCreating(true)}
+ async function addRecord(){if(!user||!config[active])return;if(!projectId&&!['Clients','Leads','Crew','Invoices','Estimates'].includes(active)){setNotice('Create or select a project first.');return}setCreating(true)}
  async function createRecord(values){
   try{
    if(active==='Messages'&&!String(values.body||'').trim())throw new Error('Message cannot be empty');if(active==='Expenses'&&Number(values.amount||0)<0)throw new Error('Amount cannot be negative');if(active==='Invoices'){const amount=Number(values.total||0);if(!values.client_name||amount<=0)throw new Error('Client name and a positive amount are required');const res=await fetch('/api/invoices',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_name:values.client_name,client_email:values.client_email||'',currency:'EUR',items:[{description:values.description||'Photography services',quantity:1,unit_price:amount,vat_rate:0}]})});const json=await res.json();if(!res.ok)throw new Error(json.error||'Could not create invoice');setRows(v=>[json.invoice,...v]);setCreating(false);return}
-   const cfg=config[active],base={owner_id:user.id,...values};if(active==='Messages')base.sender_id=user.id;if(projectId&&!['Clients','Leads','Crew','Invoices','Estimates'].includes(active))base.project_id=projectId;if(active==='Leads')base.status='lead';if(active==='Tasks'&&!base.status)base.status='todo';if(active==='Casting'&&!base.status)base.status='preselection';
+   const cfg=config[active],base={owner_id:user.id,...values};if(active==='Messages')base.sender_id=user.id;if(active==='Expenses'&&base.amount!=='')base.amount=Number(base.amount);if(projectId&&!['Clients','Leads','Crew','Invoices','Estimates'].includes(active))base.project_id=projectId;if(active==='Leads')base.status='lead';if(active==='Tasks'&&!base.status)base.status='todo';if(active==='Casting'&&!base.status)base.status='preselection';
    const s=createClient(),{data,error}=await s.from(cfg.table).insert(base).select().single();if(error)throw error;setRows(v=>[data,...v]);setCreating(false);setNotice('')
   }catch(e){setNotice('Could not create record: '+e.message)}
  }
