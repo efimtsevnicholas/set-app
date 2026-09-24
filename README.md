@@ -1,21 +1,9 @@
-# SET v1.0 RC6 — Cloud Realtime
+# SET v2.2 — Clean Release
+Clean Next.js 15 rebuild with no middleware and no blocking server auth calls.
 
-RC6 moves SET from browser-only state toward a real collaborative workspace.
+## Vercel
+1. Replace repository contents with these files.
+2. Add Environment Variables from `.env.example` (use your real Supabase publishable key).
+3. Deploy.
 
-Implemented in this build:
-- Supabase-backed Projects, Tasks and Calendar events with Realtime subscriptions.
-- First-login migration of existing local Projects/Tasks/Events into cloud UUID records when the account has no cloud projects.
-- Cloud-synced Clients, Contacts, Network and per-project Team collections, with local cache fallback.
-- Private Supabase Storage bucket for project files, signed URL opening and delete support.
-- Team-aware RLS for project operational data.
-- Project invitation schema plus `accept_project_invite()` RPC foundation.
-- Existing Finance, Call Sheet, Moodboards, Tasks collaboration, billing and auth fixes retained.
-
-Production database migration `set_rc6_cloud_realtime_workspace_v2` was applied successfully to Supabase.
-
-Known remaining integration work:
-- automatic invitation email/auth acceptance UI;
-- provider-backed push notifications;
-- full Google/Microsoft calendar two-way CRUD callbacks;
-- inbound WhatsApp/Telegram/email sync;
-- moving remaining media blobs from browser data URLs to Storage.
+This release intentionally has no `middleware.js`; it cannot reproduce the previous middleware timeout.

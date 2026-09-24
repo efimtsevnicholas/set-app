@@ -1,1 +1,7 @@
-{"name":"set-v2-ai-production-os","private":true,"scripts":{"dev":"python3 -m http.server 3000","start":"python3 -m http.server 3000"}}
+{
+  "name": "set-app",
+  "version": "2.2.0",
+  "private": true,
+  "scripts": {"dev":"next dev","build":"next build","start":"next start"},
+  "dependencies": {"@supabase/ssr":"^0.7.0","@supabase/supabase-js":"^2.57.4","next":"15.5.4","react":"19.1.0","react-dom":"19.1.0"}
+}
